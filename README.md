@@ -1,7 +1,7 @@
 # Optimal stock portfolio
 
-**Author:** Abdurrahman Fadhil
-**Date:** 25 June 2025
+- **Author:** Abdurrahman Fadhil
+- **Date:** 25 June 2025
 
 ## Abstract
 
