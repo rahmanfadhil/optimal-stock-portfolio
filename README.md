@@ -1,11 +1,11 @@
 # Optimal stock portfolio
 
 - **Author:** Abdurrahman Fadhil
-- **Date:** 25 June 2025
+- **Date:** 26 June 2025
 
 ## Abstract
 
-This paper evaluates the practical performance of naive implementations of the Markowitz (1952) Mean-Variance Optimization (MVO) framework on a portfolio of 12 Indonesian stocks from 2009 to 2025. I construct and backtest two MVO-based strategies—Minimum Variance and Maximum Sharpe Ratio—and compare their performance against the equally weighted (1/N) portfolio benchmark. The MVO inputs are estimated using simple historical sample averages from a rolling 60-month lookback window. The strategies are simulated accounting for various rebalancing frequencies from monthly to annually, incorporating transaction costs. The results indicate that while the Maximum Sharpe Ratio portfolio achieves the highest risk-adjusted returns (Sharpe Ratio), the simple 1/N portfolio generates the highest terminal wealth, especially when rebalanced infrequently. The Minimum Variance portfolio successfully reduces volatility but at the cost of significantly lower returns. The findings underscore the formidable challenge of estimation error in practical applications of MVO and reaffirm the robustness of the 1/N heuristic.
+I investigate the out-of-sample performance of three portfolio construction strategies: the naive equally-weighted (1/N) portfolio, the Minimum Variance Portfolio (MVP), and the Maximum Sharpe Ratio Portfolio (MSRP). Using monthly returns data from 12 Indonesian stocks spanning January 2004 to May 2025, I employ a rolling-window backtesting methodology to evaluate their performance across various rebalancing frequencies. I find that the MSRP consistently yields superior risk-adjusted returns and significantly lower maximum drawdowns compared to both the MVP and the 1/N portfolio. The 1/N portfolio often demonstrates competitive absolute returns, even outperforming optimization-based strategies in many scenarios. However, it does so at the cost of substantially higher volatility and deeper drawdowns. The MVP, despite achieving the lowest volatility, severely underperforms in terms of absolute and risk-adjusted returns.
 
 ## Usage
 
