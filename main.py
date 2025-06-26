@@ -10,7 +10,7 @@ logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
 # Configuration Parameters
 LOOKBACK_PERIOD = 60  # Lookback period in months
 TRANSACTION_COST_RATE = 0.0025  # 0.25%
-RISK_FREE_RATE_MONTHLY = 0.025 / 12  # 2.5% annual rate divided by 12
+RISK_FREE_RATE_MONTHLY = (1 + 0.025)**(1/12) - 1  # 2.5% annual rate
 MAXIMUM_EXPOSURE = 0.4 # 40% maximum exposure to a single stock
 
 # Ensure output folder exists
@@ -208,12 +208,6 @@ def main():
     logging.info("\n%s", summary_stats.to_string())
     summary_stats.to_csv("output/summary_stats.csv")
 
-    # Correlation matrix
-    corr_matrix = returns_data.corr().round(2)
-    logging.info("\nFull-Sample Correlation Matrix (Monthly Returns):")
-    logging.info("\n%s", corr_matrix.to_string())
-    corr_matrix.to_csv("output/corr_matrix.csv")
-
     if len(returns_data) < LOOKBACK_PERIOD:
         logging.error(f"Not enough data for a {LOOKBACK_PERIOD}-month lookback. Available: {len(returns_data)} months.")
         return
@@ -235,7 +229,7 @@ def main():
                 num_months_simulated = len(df_values) - 1
                 if num_months_simulated > 0:
                     annualized_return = (1 + cumulative_return)**(12/num_months_simulated) - 1
-                    annualized_volatility = df_values['MonthlyPortfolioReturn'].std() * np.sqrt(12)
+                    annualized_volatility = np.log(1 + df_values['MonthlyPortfolioReturn']).std() * np.sqrt(12)
                     sharpe_ratio = (annualized_return - (RISK_FREE_RATE_MONTHLY * 12)) / annualized_volatility if annualized_volatility != 0 else np.nan
                 else:
                     annualized_return, annualized_volatility, sharpe_ratio = np.nan, np.nan, np.nan
